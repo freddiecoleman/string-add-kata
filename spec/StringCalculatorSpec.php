@@ -1,5 +1,6 @@
 <?php namespace spec;
 
+use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -24,14 +25,19 @@ class StringCalculatorSpec extends ObjectBehavior
     {
         $this->add('1,2,3,4,5')->shouldEqual(15);
     }
-
+    
     function it_disallows_negative_numbers()
     {
-        $this->shouldThrow('InvalidArgumentException')->duringAdd('2,-4');
+        $this->shouldThrow(new InvalidArgumentException('Invalid number provided: -2'))->duringAdd('3,-2');
     }
 
     function it_ignores_any_numbers_greater_than_one_thousand()
     {
         $this->add('1,2000,3000,4')->shouldEqual(5);
+    }
+
+    function it_allows_for_new_line_delimiters()
+    {
+        $this->add('2,2\n2')->shouldEqual(6);
     }
 }
