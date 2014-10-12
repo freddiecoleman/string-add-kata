@@ -5,8 +5,30 @@ use Prophecy\Argument;
 
 class StringCalculatorSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_translates_an_empty_string_into_zero()
     {
-        $this->shouldHaveType('StringCalculator');
+        $this->add('')->shouldEqual(0);
     }
+
+    function it_finds_the_sum_of_one_number()
+    {
+        $this->add('6')->shouldEqual(6);
+    }
+
+    function it_finds_the_sum_of_two_numbers()
+    {
+        $this->add('1,2')->shouldEqual(3);
+    }
+
+    function it_finds_the_sum_of_any_amount_of_numbers()
+    {
+        $this->add('1,2,3,4,5')->shouldEqual(15);
+    }
+
+    function it_disallows_negative_numbers()
+    {
+        $this->shouldThrow('InvalidArgumentException')->duringAdd('2,-4');
+    }
+
+    
 }
