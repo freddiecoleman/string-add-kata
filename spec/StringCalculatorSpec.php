@@ -30,5 +30,8 @@ class StringCalculatorSpec extends ObjectBehavior
         $this->shouldThrow('InvalidArgumentException')->duringAdd('2,-4');
     }
 
-    
+    function it_ignores_any_numbers_greater_than_one_thousand()
+    {
+        $this->add('1,2000,3000,4')->shouldEqual(5);
+    }
 }

@@ -10,7 +10,7 @@ class StringCalculator
         foreach ($numbers as $number)
         {
             if ($number < 0) throw new InvalidArgumentException;
-            $total += $number;
+            if ($number < 1000) $total += $number;
         }
 
         return $total;
